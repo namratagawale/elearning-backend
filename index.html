@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform - Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">E-Learning Platform</div>
+        <nav class="nav-links">
+            <a href="index.html" onclick="showSection('courses')">Courses</a>
+            <a href="#" onclick="showDashboard()">Dashboard</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn-theme" onclick="toggleDarkMode()" id="themeBtn">🌙</button>
+            <span id="userProfileDisplay" class="hidden">👤 <span id="navUsername"></span></span>
+            <button class="btn-primary" id="authBtn" onclick="openAuthModal('login')">Login / Register</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="heroSection">
+        <h1>Learn Any Subject, Anytime, Anywhere</h1>
+        <p>Explore courses across Technology, Science, and Commerce. Take quizzes and earn verified certificates!</p>
+        <a href="#coursesSection" class="btn-hero">Start Learning</a>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        
+        <!-- Courses & Search Section -->
+        <section id="coursesSection">
+            <div class="section-header">
+                <h2>Explore Subjects</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search courses or instructors..." oninput="handleSearch()">
+                </div>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="category-buttons">
+                <button class="btn-filter active" onclick="filterCourses('All')">All Subjects</button>
+                <button class="btn-filter" onclick="filterCourses('Technology')">Technology</button>
+                <button class="btn-filter" onclick="filterCourses('Science')">Science & Math</button>
+                <button class="btn-filter" onclick="filterCourses('Commerce')">Commerce</button>
+            </div>
+
+            <!-- Course Grid -->
+            <div class="course-grid" id="courseContainer"></div>
+        </section>
+
+        <!-- Video Player & MCQ Quiz Section -->
+        <section id="videoSection" class="video-section hidden">
+            <h2 id="currentLessonTitle">Lesson Video</h2>
+            <div class="video-wrapper">
+                <iframe id="videoPlayer" width="100%" height="450" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="quiz-box" id="quizBox">
+                <h3>📝 MCQ Knowledge Check</h3>
+                <p id="quizQuestion"></p>
+                <div id="quizOptions" class="quiz-options"></div>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+
+            <button class="btn-secondary" onclick="closeVideo()">Back to Courses</button>
+        </section>
+
+        <!-- Student Dashboard Section -->
+        <section id="dashboardSection" class="dashboard-section hidden">
+            <h2>Student Dashboard</h2>
+            <div class="stats-card">
+                <h3>Your Learning Progress</h3>
+                <p>Completed Courses: <span id="completedCount">0</span> / <span id="totalCount">0</span></p>
+                <div class="progress-bar-bg">
+                    <div id="progressBarFill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <h3>Your Certificates</h3>
+            <div id="certificateContainer" class="certificate-grid">
+                <p>Complete quizzes to earn and unlock your certificates!</p>
+            </div>
+            <button class="btn-secondary" onclick="showSection('courses')">Back to Courses</button>
+        </section>
+
+    </main>
+
+    <!-- Student Auth Modal -->
+    <div id="authModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <h2 id="modalTitle">Login</h2>
+            <form id="authForm" onsubmit="handleAuthSubmit(event)">
+                <div id="nameFieldGroup" class="form-group hidden">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="authEmail" required placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPassword" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn-primary full-width" id="modalSubmitBtn">Login</button>
+            </form>
+            <p class="switch-auth" id="switchAuthText">
+                Don't have an account? <a href="#" onclick="toggleAuthMode()">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Certificate Generator Modal -->
+    <div id="certModal" class="modal hidden">
+        <div class="cert-card-modal">
+            <span class="close-btn" onclick="closeCertificate()">&times;</span>
+            <div class="certificate-border">
+                <h2>🏆 Certificate of Completion</h2>
+                <p>This is proudly presented to</p>
+                <h1 id="certStudentName">Student Name</h1>
+                <p>for successfully completing the course</p>
+                <h3 id="certCourseName">Course Title</h3>
+                <div class="cert-footer">
+                    <span> E-Learning Platform</span>
+                    <span>Verified ✓</span>
+                </div>
+            </div>
+            <button class="btn-primary" style="margin-top:20px;" onclick="closeCertificate()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
